@@ -2,8 +2,6 @@
 
 RainViewer-F1 is a web application that combines RainViewer, a rain radar visualization tool, with live Formula 1 race data. It allows users to track rain conditions on the race track during Formula 1 races.
 
-![RainViewer-F1 Demo](demo.gif)
-
 ## Installation
 
 To use RainViewer-F1, follow these steps:

@@ -1,4 +1,9 @@
-.leaflet-container {
-  width: 100%;
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+#map{
+  width: auto;
   height: 100vh;
 }
