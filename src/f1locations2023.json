@@ -1,0 +1,188 @@
+{
+  "Tracks": [
+    {
+      "lat": 26.031,
+      "lon": 50.512,
+      "zoom": 15,
+      "location": "Sakhir",
+      "name": "Bahrain International Circuit",
+      "id": "bh"
+    },
+    {
+      "lat": 21.632,
+      "lon": 39.104,
+      "zoom": 14,
+      "location": "Jeddah",
+      "name": "Jeddah Corniche Circuit",
+      "id": "sa"
+    },
+    {
+      "lat": -37.846,
+      "lon": 144.97,
+      "zoom": 14,
+      "location": "Melbourne",
+      "name": "Albert Park Circuit",
+      "id": "au"
+    },
+    {
+      "lat": 40.369,
+      "lon": 49.842,
+      "zoom": 14,
+      "location": "Baku",
+      "name": "Baku City Circuit",
+      "id": "az"
+    },
+    {
+      "lat": 25.958,
+      "lon": -80.239,
+      "zoom": 15,
+      "location": "Miami",
+      "name": "Miami International Autodrome",
+      "id": "us-mia"
+    },
+    {
+      "lat": 44.341,
+      "lon": 11.713,
+      "zoom": 15,
+      "location": "Imola",
+      "name": "Autodromo Enzo e Dino Ferrari",
+      "id": "it"
+    },
+    {
+      "lat": 43.737,
+      "lon": 7.429,
+      "zoom": 15,
+      "location": "Monte Carlo",
+      "name": "Circuit de Monaco",
+      "id": "mc"
+    },
+    {
+      "lat": 41.569,
+      "lon": 2.259,
+      "zoom": 14,
+      "name": "Circuit de Barcelona-Catalunya",
+      "location": "Barcelona",
+      "id": "es"
+    },
+    {
+      "lat": 45.506,
+      "lon": -73.525,
+      "zoom": 14,
+      "location": "Montreal",
+      "name": "Circuit Gilles-Villeneuve",
+      "id": "ca"
+    },
+    {
+      "lat": 47.223,
+      "lon": 14.761,
+      "zoom": 15,
+      "location": "Spielberg",
+      "name": "Red Bull Ring",
+      "id": "at"
+    },
+    {
+      "lat": 52.072,
+      "lon": -1.017,
+      "zoom": 14,
+      "location": "Silverstone",
+      "name": "Silverstone Circuit",
+      "id": "gb"
+    },
+    {
+      "lat": 47.583,
+      "lon": 19.25,
+      "zoom": 14,
+      "location": "Budapest",
+      "name": "Hungaroring",
+      "id": "hu"
+    },
+    {
+      "lat": 50.436,
+      "lon": 5.971,
+      "zoom": 13,
+      "location": "Spa Francorchamps",
+      "name": "Circuit de Spa-Francorchamps",
+      "id": "be"
+    },
+    {
+      "lat": 52.389,
+      "lon": 4.541,
+      "zoom": 15,
+      "location": "Zandvoort",
+      "name": "Circuit Zandvoort",
+      "id": "nl"
+    },
+    {
+      "lat": 45.621,
+      "lon": 9.29,
+      "zoom": 13,
+      "location": "Monza",
+      "name": "Autodromo Nazionale Monza",
+      "id": "it"
+    },
+    {
+      "lat": 1.291,
+      "lon": 103.859,
+      "zoom": 15,
+      "location": "Singapore",
+      "name": "Marina Bay Street Circuit",
+      "id": "sg"
+    },
+    {
+      "lat": 34.844,
+      "lon": 136.534,
+      "zoom": 15,
+      "location": "Suzuka",
+      "name": "Suzuka International Racing Course",
+      "id": "jp"
+    },
+    {
+      "lat": 25.49,
+      "lon": 51.454,
+      "zoom": 15,
+      "location": "Lusail",
+      "name": "Losail International Circuit",
+      "id": "qa"
+    },
+    {
+      "lat": 30.135,
+      "lon": -97.633,
+      "zoom": 15,
+      "location": "Austin",
+      "name": "Circuit of the Americas",
+      "id": "us-cota"
+    },
+    {
+      "lat": 19.402,
+      "lon": -99.091,
+      "zoom": 15,
+      "location": "Mexico City",
+      "name": "Autódromo Hermanos Rodríguez",
+      "id": "mx"
+    },
+    {
+      "lat": -23.702,
+      "lon": -46.698,
+      "zoom": 15,
+      "location": "Sao Paulo",
+      "name": "Autódromo José Carlos Pace - Interlagos",
+      "id": "br"
+    },
+    {
+      "lat": 36.116,
+      "lon": -115.168,
+      "zoom": 14,
+      "location": "Las Vegas",
+      "name": "Las Vegas Street Circuit",
+      "id": "us-lv"
+    },
+    {
+      "lat": 24.471,
+      "lon": 54.601,
+      "zoom": 14,
+      "location": "Abu Dhabi",
+      "name": "Yas Marina Circuit",
+      "id": "ae"
+    }
+  ]
+}
