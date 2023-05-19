@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import App from './App.tsx';
-import GeoJsonMap from './components/f1geojson.tsx';
 
 const darkTheme = createTheme({
   palette: {
@@ -20,7 +19,6 @@ root.render(
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <App />
-      <GeoJsonMap />
     </ThemeProvider>
   </React.StrictMode>
 );

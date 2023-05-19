@@ -4,6 +4,8 @@ import { LatLngExpression } from 'leaflet';
 import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { AppBar, CircularProgress, Toolbar, Typography } from '@mui/material';
+import GeoJsonMap from './components/f1geojson';
+import F1Tracks from './components/F1Tracks';
 
 const App = () => {
   const position: LatLngExpression = [37.0902, -95.7129];
@@ -39,7 +41,7 @@ const App = () => {
 
   return (
     <main id='App'>
-      <MapContainer id='map' center={position} zoom={5}>
+      <MapContainer id='map' center={position} zoom={5} minZoom={3}>
         <LayersControl position='topright'>
           <LayersControl.BaseLayer checked name='OSM'>
             <TileLayer
@@ -60,25 +62,29 @@ const App = () => {
             />
           </LayersControl.BaseLayer>
           {timeUTC ? (
-            <LayersControl.Overlay checked name='Rainviewer'>
-              <TileLayer url={`https://tilecache.rainviewer.com/v2/radar/${timeUTC}/256/{z}/{x}/{y}/8/1_1.png`} />
-            </LayersControl.Overlay>
+            <>
+              <GeoJsonMap />
+              <LayersControl.Overlay checked name='Rainviewer'>
+                <TileLayer url={`https://tilecache.rainviewer.com/v2/radar/${timeUTC}/256/{z}/{x}/{y}/8/1_1.png`} />
+              </LayersControl.Overlay>
+            </>
           ) : null}
         </LayersControl>
       </MapContainer>
       {dateTime ? (
-        <AppBar component={'footer'} position='fixed' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
+        <AppBar component={'footer'} position='absolute' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
           <Toolbar sx={{ justifyContent: 'center' }}>
             <Typography variant='h5'>Weather Last Updated: {dateTime}</Typography>
           </Toolbar>
         </AppBar>
       ) : (
-        <AppBar position='fixed' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
+        <AppBar component={'footer'} position='fixed' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
           <Toolbar sx={{ justifyContent: 'center' }}>
             <CircularProgress />
           </Toolbar>
         </AppBar>
       )}
+      <F1Tracks />
     </main>
   );
 };

@@ -1,26 +1,15 @@
+import { GeoJSON } from 'react-leaflet';
 import f1Circuits from '../f1Tracks.json';
-import { Box, Paper, Typography } from '@mui/material';
+
 const GeoJsonMap = () => {
   return (
     <>
-      <Box sx={{ pt: 4, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 2 }}>
-        {f1Circuits.features.map((data) => {
-          const name = data.properties.Name;
-          const id = data.properties.id;
-          const location = data.properties.Location;
+      {f1Circuits.features.map((feature) => {
+        const { properties, geometry } = feature;
+        const { id } = properties;
 
-          return (
-            <Paper elevation={4} key={id} sx={{ bgcolor: '' }}>
-              <Typography id={id} variant='h3' sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-                Circuit Name: {name}
-              </Typography>
-              <Typography id={id} variant='h3' sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-                Location: {location}
-              </Typography>
-            </Paper>
-          );
-        })}
-      </Box>
+        return <GeoJSON key={id} data={geometry as GeoJSON.GeoJsonObject} style={{ color: 'blue' }}></GeoJSON>;
+      })}
     </>
   );
 };
