@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { AppBar, CircularProgress, Toolbar, Typography } from '@mui/material';
 import GeoJsonMap from './components/f1geojson';
-import F1Tracks from './components/F1Tracks';
+import F1Schedule from './components/F1Schedule';
 
 const App = () => {
   const position: LatLngExpression = [37.0902, -95.7129];
@@ -78,13 +78,13 @@ const App = () => {
           </Toolbar>
         </AppBar>
       ) : (
-        <AppBar component={'footer'} position='fixed' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
+        <AppBar component={'footer'} position='absolute' sx={{ top: 'auto', bottom: 0, left: 0, width: { s: 200 } }}>
           <Toolbar sx={{ justifyContent: 'center' }}>
             <CircularProgress />
           </Toolbar>
         </AppBar>
       )}
-      <F1Tracks />
+      <F1Schedule />
     </main>
   );
 };
