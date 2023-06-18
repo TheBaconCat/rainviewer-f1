@@ -106,7 +106,7 @@ const F1Schedule = () => {
                       ? 'inherit'
                       : {
                           backgroundColor: '#2C2C2C',
-                          cursor: 'pointer',
+                          cursor: 'default',
                           transition: 'all 0.5s ease-in-out',
                         },
                 }}>
