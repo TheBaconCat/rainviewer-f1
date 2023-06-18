@@ -2,7 +2,7 @@
 
 RainViewer-F1 is a web application that combines RainViewer, a rain radar visualization tool, with F1 Track GeoJSON Data. It allows users to track rain conditions on the race track during Formula 1 races.
 
-[![MIT](https://img.shields.io/github/license/TheBaconCat/rainviewer-f1?color=blue&style=for-the-badge)](LICENSE)
+[![MIT](https://img.shields.io/github/license/TheBaconCat/rainviewer-f1?color=blue&style=for-the-badge)](LICENSE.md)
 ## Technologies Used
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
