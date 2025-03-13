@@ -1,25 +1,29 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { dependencies } from './package.json';
-function renderChunks(deps: Record<string, string>) {
-  const chunks = {};
-  Object.keys(deps).forEach((key) => {
-    if (['react', 'react-dom'].includes(key)) return;
-    chunks[key] = [key];
-  });
-  return chunks;
-}
+
+const reactDeps = Object.keys(dependencies).filter((key) => key === 'react' || key.startsWith('react-'));
+
+const manualChunks: Record<string, string[]> = {
+  vendor: reactDeps,
+  ...Object.keys(dependencies).reduce(
+    (chunks, name) => {
+      if (!reactDeps.includes(name)) {
+        chunks[name] = [name];
+      }
+      return chunks;
+    },
+    {} as Record<string, string[]>
+  ),
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ...renderChunks(dependencies),
-        },
+        manualChunks: manualChunks,
       },
     },
   },

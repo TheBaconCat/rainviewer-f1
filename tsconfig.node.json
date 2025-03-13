@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
+    "strict": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },

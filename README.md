@@ -1,13 +1,16 @@
 # RainViewer-F1
 
-RainViewer-F1 is a web application that combines RainViewer, a rain radar visualization tool, with F1 Track GeoJSON Data. It allows users to track rain conditions on the race track during Formula 1 races.
+RainViewer-F1 is a web application that combines RainViewer, a rain radar visualization tool, with F1 Track GeoJSON
+Data. It allows users to track rain conditions on the race track during Formula 1 races. It comes with a Race Schedule
+and countdown timer to next session and it includes weather
 
 [![MIT](https://img.shields.io/github/license/TheBaconCat/rainviewer-f1?color=blue&style=for-the-badge)](LICENSE.md)
+
 ## Technologies Used
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
 
-[![Leaflet](https://img.shields.io/badge/leaflet-20232A?style=for-the-badge&logo=leaflet&logoColor=b5e160)](https://leafletjs.com/)
+[![MapLibre](https://img.shields.io/badge/maplibre-20232A?style=for-the-badge&logo=mapLibre&logoColor=b5e160)](https://maplibre.org/)
 
 [![Rainviewer](https://img.shields.io/badge/RainViewer-20232A?style=for-the-badge&logo=rainmeter&logoColor=6a97ed)](https://www.rainviewer.com/api.html)
 
@@ -16,11 +19,13 @@ RainViewer-F1 is a web application that combines RainViewer, a rain radar visual
 [![Vite](https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite&logoColor=646CFF)](https://vitejs.dev/)
 
 💚 Love
+
 ## Features
 
 - Integration of RainViewer rain radar visualization
 - Interactive map with rain overlay
 - Responsive design for desktop and mobile devices
+
 ## Installation
 
 To use RainViewer-F1, follow these steps:
@@ -36,11 +41,10 @@ To use RainViewer-F1, follow these steps:
 3. Select the desired Formula 1 race from the dropdown menu.
 4. Observe the live rain radar visualization and track conditions during the race.
 
-
-
 ## Contributing
 
-Contributions to RainViewer-F1 are welcome! If you find a bug or have an enhancement in mind, please open an issue or submit a pull request. Make sure to follow the project's code style and guidelines.
+Contributions to RainViewer-F1 are welcome! If you find a bug or have an enhancement in mind, please open an issue or
+submit a pull request. Make sure to follow the project's code style and guidelines.
 
 ## License
 

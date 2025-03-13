@@ -1,126 +1,197 @@
-import { useEffect, useState, useMemo } from 'react';
-import {
-  Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  CircularProgress,
-  Typography,
-} from '@mui/material';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 import { DateTime } from 'luxon';
+import React, { useEffect, useState } from 'react';
+import { F1ScheduleInterface } from '../interfaces/F1ScheduleInterface';
+import { F1ScheduleJSON } from '../utils/F1ScheduleJSON';
+import Countdown from './Countdown';
 
-interface Race {
-  round: string;
-  season: string;
-  date: string;
-  raceName: string;
-  Circuit: {
-    circuitName: string;
-    Location: {
-      locality: string;
-    };
-  };
-}
+const ExpandIcon = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.primary.dark,
+}));
 
-const F1Schedule = () => {
-  const [raceSchedule, setRaceSchedule] = useState<Race[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const HoverableTableRow = React.memo(
+  styled(TableRow)(({ theme }) => ({
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '&.active': {
+      backgroundColor: theme.palette.action.active,
+    },
+  }))
+);
+let isPastDate = false;
+
+const CustomTableRow = styled(TableRow)(({ theme }) => ({
+  opacity: isPastDate ? '20%' : theme.typography.body1.opacity,
+  textDecoration: isPastDate ? 'line-through' : theme.typography.body1.textDecoration,
+}));
+
+const CustomTableCell = styled(TableCell)(({ theme }) => ({
+  opacity: isPastDate ? '20%' : theme.typography.body1.opacity,
+}));
+
+const DateRangeTypography = styled(Typography)(({ theme }) => ({
+  marginTop: theme.spacing(1),
+  textAlign: 'left',
+}));
+
+function F1Schedule({ selectedCircuit }: { selectedCircuit: string }) {
+  const [state, setState] = useState({
+    scheduleData: F1ScheduleJSON as F1ScheduleInterface,
+    isExpanded: true,
+  });
+
+  const { scheduleData, isExpanded } = state;
+  const [autoAnimate] = useAutoAnimate();
 
   useEffect(() => {
-    const fetchRaceSchedule = async () => {
-      try {
-        const response = await fetch('https://ergast.com/api/f1/current.json');
-        const data = await response.json();
-        const schedule = data.MRData.RaceTable.Races;
-        setRaceSchedule(schedule);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching race schedule:', error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchRaceSchedule();
+    setState((prev) => ({ ...prev, scheduleData: F1ScheduleJSON }));
   }, []);
 
-  const formatRaceDate = (date: string) => {
-    return DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL);
+  const handleExpandRow = () => {
+    setState((prev) => ({ ...prev, isExpanded: !prev.isExpanded }));
   };
 
-  const getClosestRaceIndex = useMemo(() => {
-    const currentDate = DateTime.local();
-    let closestRaceIndex = 0;
-    let closestRaceDiff = Infinity;
+  const convertToDateTime = (date: string | number | Date) => {
+    const raceDateTime = DateTime.fromJSDate(new Date(date));
+    isPastDate = raceDateTime < DateTime.now();
 
-    raceSchedule.forEach((race, index) => {
-      const raceDateTime = DateTime.fromISO(race.date);
-      const diff = Math.abs(raceDateTime.diff(currentDate).as('seconds'));
-
-      if (diff < closestRaceDiff && currentDate <= raceDateTime) {
-        closestRaceDiff = diff;
-        closestRaceIndex = index;
-      }
-    });
-    return closestRaceIndex;
-  }, [raceSchedule]);
-
-  if (isLoading) {
     return (
-      <Box sx={{ pt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <CircularProgress />
-        <Typography variant='body1' mt={2}>
-          Loading...
-        </Typography>
-      </Box>
+      <Typography>
+        {raceDateTime.toLocaleString({
+          weekday: 'short',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZoneName: 'short',
+        })}
+      </Typography>
     );
-  }
+  };
 
-  const currentYear = DateTime.local().year; // Get the current year
+  const filteredRaces = scheduleData.Races.filter((race) => race.Circuit.circuitName === selectedCircuit);
 
   return (
-    <Box sx={{ pt: 4, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 2 }}>
-      <Typography variant='h4' align='center' mb={2}>
-        F1 {currentYear} Race Schedule
-      </Typography>
-      <TableContainer>
-        <Table className='fade-in-table'>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Grand Prix</TableCell>
-              <TableCell>Circuit</TableCell>
-              <TableCell>Location</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {raceSchedule.map((race, index) => (
-              <TableRow
-                key={race.round}
-                sx={{
-                  backgroundColor: index === getClosestRaceIndex ? '#3ea6ff' : 'inherit',
-                  '&:hover':
-                    index === getClosestRaceIndex
-                      ? 'inherit'
-                      : {
-                          backgroundColor: '#2C2C2C',
-                          cursor: 'default',
-                          transition: 'all 0.5s ease-in-out',
-                        },
-                }}>
-                <TableCell>{formatRaceDate(race.date)}</TableCell>
-                <TableCell>{race.raceName}</TableCell>
-                <TableCell>{race.Circuit.circuitName}</TableCell>
-                <TableCell>{race.Circuit.Location.locality}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          m: '1rem',
+        }}
+        ref={autoAnimate}>
+        <Countdown sessions={filteredRaces[0]?.sessions} />
+        <Typography variant='caption' marginBottom={'1rem'}>
+          Timezone: {DateTime.now().zoneName}
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table aria-label='collapsible table'>
+            <TableBody>
+              {filteredRaces.map((race) => {
+                const hoverableTableRow = (
+                  <HoverableTableRow key={race.round} onClick={handleExpandRow}>
+                    <TableCell width={'fit-content'}>
+                      <ExpandIcon aria-label='expand row' size='small' aria-expanded={isExpanded}>
+                        {isExpanded ? <ExpandLess /> : <ExpandMore />}
+                      </ExpandIcon>
+                    </TableCell>
+                    <CustomTableCell>
+                      <Typography>{race.raceName}</Typography>
+                      <DateRangeTypography>
+                        {DateTime.fromISO(race.sessions.fp1).toLocaleString({ month: 'long', day: 'numeric' })} -{' '}
+                        {DateTime.fromISO(race.sessions.gp).toLocaleString({ month: 'long', day: 'numeric' })}
+                      </DateRangeTypography>
+                    </CustomTableCell>
+                  </HoverableTableRow>
+                );
+
+                return (
+                  <React.Fragment key={race.round}>
+                    {hoverableTableRow}
+                    <TableRow>
+                      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+                        <Collapse in={isExpanded} timeout='auto' unmountOnExit>
+                          <Table>
+                            <TableBody>
+                              {race.sessions.fp1 && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Free Practice 1 {convertToDateTime(race.sessions.fp1)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.fp2 && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Free Practice 2 {convertToDateTime(race.sessions.fp2)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.fp3 && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Free Practice 3 {convertToDateTime(race.sessions.fp3)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.qualifying && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Qualifying {convertToDateTime(race.sessions.qualifying)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.sprintQualifying && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Sprint Shootout {convertToDateTime(race.sessions.sprintQualifying)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.sprint && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>
+                                    Sprint Race {convertToDateTime(race.sessions.sprint)}
+                                  </TableCell>
+                                </CustomTableRow>
+                              )}
+                              {race.sessions.gp && (
+                                <CustomTableRow>
+                                  <TableCell align='center'>Grand Prix {convertToDateTime(race.sessions.gp)}</TableCell>
+                                </CustomTableRow>
+                              )}
+                            </TableBody>
+                          </Table>
+                        </Collapse>
+                      </TableCell>
+                    </TableRow>
+                  </React.Fragment>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
-};
+}
 
 export default F1Schedule;
